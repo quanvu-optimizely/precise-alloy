@@ -26,12 +26,21 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ci": "bun run typecheck && vitest run --coverage --reporter=default"
+    "test:ci": "bun run typecheck && vitest run --coverage --reporter=default",
+    "xpack:styles": "xpack styles",
+    "xpack:scripts": "xpack scripts",
+    "xpack:dev": "xpack dev",
+    "xpack:build": "xpack build",
+    "xpack:prerender": "xpack prerender",
+    "xpack:integrate": "xpack integrate",
+    "xpack:states": "xpack states",
+    "xpack:generate": "xpack generate"
   },
   "engines": {
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@quanvu-optimizely/xpack": "file:../PreciseAlloy.xPack",
     "@types/js-yaml": "^4.0.9",
     "chalk": "^5.5.0",
     "express-rate-limit": "^8.4.1",
