@@ -19,9 +19,9 @@ Tests live alongside source files as `*.test.ts`. Test root is `src/`.
 
 ## Architecture
 
-**CLI entry**: `bin/cli.js` → `src/cli.ts` (commander). Subcommands: `generate`, `styles`, `scripts`, `dev`, `build`, `prerender`, `integrate`, `states`.
+**CLI entry**: `bin/xpack.ts` → `src/cli.ts` (commander). Subcommands: `generate`, `styles`, `scripts`, `dev`, `build`, `prerender`, `integrate`, `states`.
 
-**Vite plugin** (`src/config.ts`): Custom Vite config exported via `./vite-plugin`. Registers a chain of custom Rollup/Vite hooks under `src/hooks/` (build-start, transform, inject-functions, write-bundle, close-bundle, etc.).
+**Vite plugin** (`src/config.ts`): Custom Vite config exported via `./vite-plugin`. Registers a chain of custom Vite hooks under `src/hooks/` (build-start, transform, inject-functions, write-bundle, close-bundle, etc.).
 
 **Package exports**:
 - `.` → core utilities (config loader, paths, alias, style helpers)
@@ -41,7 +41,11 @@ Tests live alongside source files as `*.test.ts`. Test root is `src/`.
 
 **Path handling**: All paths normalized to forward slashes via the `slash` package. `src/paths.ts` resolves `root`, `srcRoot`, `outDir` from `process.cwd()` and loads Vite env vars.
 
-**Alias system** (`src/alias.ts`): Default aliases (`@atoms`, `@molecules`, `@organisms`, `@templates`, `@pages`, `@assets`, `@helpers`, `@data`, `@_http`, `@_api`, `@mocks`, `@xpack`) resolved relative to consumer's `src/`. Consumer `xpack.config` aliases override defaults.
+**Alias system** (`src/alias.ts`): Default aliases (`@atoms`, `@molecules`, `@organisms`, `@templates`, `@pages`, `@assets`, `@helpers`, `@data`, `@_http`, `@_api`, `@mocks`) resolved relative to consumer's `src/`. Consumer `xpack.config` aliases override defaults.
+
+**App shell** (`src/root/`): React components for the pattern library shell (navigation, frame controls, theme switching). These are bundled into the consumer's dev server and production build.
+
+**Scripts** (`src/scripts/`): Browser-side entry points (`root.entry.ts`, `pl-states.entry.ts`, `color-mode.entry.ts`, etc.) and helper functions. These run in the consumer's browser, not during build.
 
 ## Conventions
 
